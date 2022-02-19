@@ -1,6 +1,4 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
 
@@ -10,21 +8,17 @@ const Home = () => {
 
   const clickHandler = (e)=>{
     e.preventDefault();
-    setUserinput(e.target.value)
-    // console.log(e.target.value);
+    setUserinput(e.target.value);
   }
   const addList = (e)=>{
     e.preventDefault();
-    setTodoList([userInput, ...todoList])
-
-
+    setTodoList([userInput, ...todoList]);
     setUserinput("")
   } 
 
   const setDel =(todo)=>{ 
-    const updateArr = todoList.filter(todoItem => (todoList.indexOf(todoItem) != todoList.indexOf(todo)))
-    setTodoList(updateArr)
-
+    const updateArr = todoList.filter(todoNewItem => todoList.indexOf(todoNewItem) != todoList.indexOf(todo));
+    setTodoList(updateArr);
   }
   return (
     <div className={styles.container}>
@@ -33,14 +27,14 @@ const Home = () => {
       <button onClick={addList}>Add</button>
       <ul>
         {
-          todoList.length>0 ? todoList.map((todo,index)=>{
-            return <li key={index} className= {styles.list}>{todo}
-            <button className= {styles.btn} onClick ={(e)=>{e.preventDefault();setDel}}>delete</button></li>
-          }): "Enter a new todo"
+          todoList.length>=1 ? todoList.map((todo,index)=>{
+            return( <li key={index} className= {styles.list}>{todo}<button className= {styles.btn} onClick ={(e)=>{
+             e.preventDefault()
+              setDel(todo)}}>delete</button></li>
+          )}): "Enter a new todo"
         }
       </ul>
     </div>
   )
 }
-
 export default Home
